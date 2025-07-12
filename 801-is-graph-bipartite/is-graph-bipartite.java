@@ -14,7 +14,7 @@ class Solution {
         return true;
         
     }
-    // bfs 
+    // bfs  same complexity
 static boolean dfs(int g[][],int start, int col[], int currColor){
     col[start]= currColor;
     for(int neigh: g[start]){
