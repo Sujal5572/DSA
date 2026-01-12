@@ -35,7 +35,7 @@ class Solution {
 
 
 
-
+// tc O(2^n+amount) and sc(n*amount) + recursion stack space 
 //         int res = solve(n-1 , coins , amount ,dp);
 //         return res >= (int)1e9 ? -1 : res;
 //     }
