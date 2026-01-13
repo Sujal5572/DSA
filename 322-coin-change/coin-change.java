@@ -21,7 +21,7 @@ class Solution {
                 int pick = INF;
                 if(coins[i]<=j)
                 // 1 + same row , previous amount
-                pick = 1+ dp[i][j-coins[i]];
+                pick = 1+ dp[i][j-coins[i]]; // we can pick the same number again
                 dp[i][j] = Math.min(pick , notpick);
             }
         }
