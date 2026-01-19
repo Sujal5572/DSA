@@ -24,6 +24,7 @@ class Solution {
                 count2--;
             }
         }
+        // verify the ele1 n ele2
         List<Integer> ans = new ArrayList<>();
         count1 =0;
         count2=0;
