@@ -36,8 +36,7 @@ class Solution {
             int first =0 , last =0;
             for(int i=0;i<size;i++){
                 int currI = q.peek().num - minm;
-                TreeNode node = q.peek().node;
-                q.poll();
+                TreeNode node = q.poll().node;
                 if(i==0) first = currI;
                 if(i == size -1) last = currI;
                 if(node.left!= null)
