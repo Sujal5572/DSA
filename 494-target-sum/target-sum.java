@@ -1,29 +1,54 @@
 class Solution {
     public int findTargetSumWays(int[] nums, int target) {
+        //recursive O(2^n) due to + and -
+        //mem O(n*sum) as total n* 2000 states present here
+        int n = nums.length;
+        int dp[][] = new int[n][2001]; // as sum is from -1000 to 1000 so total range = 2000
+        for(int row[]:dp){
+            Arrays.fill(row,-1);
+        }
+        return solve(0,0,nums,target,dp);
+    }
+    public int solve(int i , int sum , int nums[], int target,int dp[][]){
+        if(i == nums.length){
+            if(sum == target)return 1;
+            return 0;
+        }
+        int shifted = sum + 1000;
+        if(dp[i][shifted]!= -1)return dp[i][shifted];
+
+        int plus = solve(i+1 , sum + nums[i],nums,target,dp);
+        int minus = solve(i+1,sum-nums[i],nums,target,dp);
+        return dp[i][shifted]=plus + minus;
+    }
+}
+
+
+
         // tc O(n*S)
         // sc O(S+1)
 
-        int n = nums.length;
-        int total =0;
+//         int n = nums.length;
+//         int total =0;
 
-        for(int num : nums)
-        total += num;
+//         for(int num : nums)
+//         total += num;
         
-        if(Math.abs(target)> total || (target + total)%2 != 0)//P = sum of + and N = sum of -
-        return 0; //p+n = total sum and p-n = target adding both it should nit be fraction
+//         if(Math.abs(target)> total || (target + total)%2 != 0)//P = sum of + and N = sum of -
+//         return 0; //p+n = total sum and p-n = target adding both it should nit be fraction
 
-        int S = (total + target)/2; // how many subset can have this so here we solved
+//         int S = (total + target)/2; // how many subset can have this so here we solved
 
-        int dp[] = new int[S + 1];
-        dp[0]=1;
-        for(int num : nums){
-            for(int j= S ; j>=num ;j--){
-                dp[j] += dp[j-num];
-            }
-        }
-        return dp[S];
-    }
-}
+//         int dp[] = new int[S + 1];
+//         dp[0]=1;
+//         for(int num : nums){
+//             for(int j= S ; j>=num ;j--){
+//                 dp[j] += dp[j-num];
+//             }
+//         }
+//         return dp[S];
+//     }
+// }
 
 
 
