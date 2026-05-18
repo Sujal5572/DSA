@@ -29,7 +29,7 @@ class Solution {
             for(int i=0;i<n;i++){
                 TreeNode curr = q.poll();
                 if(leftToRight){
-                    part.addLast(curr.val);
+                    part.add(curr.val);
                 }
                 else
                 part.addFirst(curr.val);
