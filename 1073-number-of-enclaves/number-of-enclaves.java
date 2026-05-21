@@ -1,20 +1,44 @@
 class Solution {
     public int numEnclaves(int[][] grid) {
-        // here tc O(n*m)as we are checking for each unqiue element at once 
-        // if constraint are large then we shift to bfs as to avoid recursion depth issue
-        int n = grid.length;
+         int n = grid.length;
         int m = grid[0].length;
-        for(int i=0;i<n;i++){
-            if(grid[i][0]==1)
-            dfs(i,0,grid);
-            if(grid[i][m-1]==1)
-            dfs(i,m-1,grid);
+        Queue<int[]> q = new LinkedList<>();
+        for(int i=0;i<n ;i++){
+            if(grid[i][0]==1){
+            q.offer(new int[]{i,0});
+            grid[i][0]=0;
+            }
+            if(grid[i][m-1]==1){
+            q.offer(new int[]{i,m-1});
+            grid[i][m-1]=0;
+            }
         }
-             for(int i=0;i<m;i++){
-            if(grid[0][i]==1)
-            dfs(0,i,grid);
-            if(grid[n-1][i]==1)
-            dfs(n-1,i,grid);
+        for(int i=0;i<m;i++){
+            if(grid[0][i]==1){
+                q.offer(new int[]{0,i});
+                grid[0][i]=0;
+            }
+            if(grid[n-1][i]==1){
+            q.offer(new int[]{n-1,i});
+            grid[n-1][i]=0;
+            }
+        }
+        
+        int dr[]={-1,0,1,0};
+        int dc[]={0,1,0,-1};
+        while(!q.isEmpty()){
+            int curr[]=q.poll();
+            int r = curr[0];
+            int c = curr[1];
+            for(int i=0;i<4;i++){
+                int nr = r + dr[i];
+                int nc = c + dc[i];
+                if(nr<n && nc < m && nr>=0 && nc>=0 && grid[nr][nc]==1){
+                grid[nr][nc]=0;
+                q.offer(new int[]{nr,nc});
+                }
+            }
+
         }
         int count =0;
         for(int i=0;i<n;i++){
@@ -23,24 +47,54 @@ class Solution {
                 count++;
             }
         }
-
-
-return count;
-    }
-    public void dfs(int i , int j , int b[][]){
-        int n = b.length;
-        int m = b[0].length;
-        if(i<0 || j<0 ||i>=n||j>=m || b[i][j]!=1)return ;
-        b[i][j] =0;
-        int dr[]={-1,0,1,0};
-        int dc[]={0,1,0,-1};
-        for(int k=0;k<4;k++){
-            int nr = i + dr[k];
-            int nc = j + dc[k];
-            dfs(nr ,nc ,b);
-        }
+        return count;
     }
 }
+
+
+
+
+        // here tc O(n*m)as we are checking for each unqiue element at once 
+        // if constraint are large then we shift to bfs as to avoid recursion depth issue
+//         int n = grid.length;
+//         int m = grid[0].length;
+//         for(int i=0;i<n;i++){
+//             if(grid[i][0]==1)
+//             dfs(i,0,grid);
+//             if(grid[i][m-1]==1)
+//             dfs(i,m-1,grid);
+//         }
+//              for(int i=0;i<m;i++){
+//             if(grid[0][i]==1)
+//             dfs(0,i,grid);
+//             if(grid[n-1][i]==1)
+//             dfs(n-1,i,grid);
+//         }
+//         int count =0;
+//         for(int i=0;i<n;i++){
+//             for(int j=0;j<m;j++){
+//                 if(grid[i][j]==1)
+//                 count++;
+//             }
+//         }
+
+
+// return count;
+//     }
+//     public void dfs(int i , int j , int b[][]){
+//         int n = b.length;
+//         int m = b[0].length;
+//         if(i<0 || j<0 ||i>=n||j>=m || b[i][j]!=1)return ;
+//         b[i][j] =0;
+//         int dr[]={-1,0,1,0};
+//         int dc[]={0,1,0,-1};
+//         for(int k=0;k<4;k++){
+//             int nr = i + dr[k];
+//             int nc = j + dc[k];
+//             dfs(nr ,nc ,b);
+//         }
+//     }
+// }
 
 
 
